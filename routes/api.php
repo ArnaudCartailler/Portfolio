@@ -16,3 +16,17 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'summoner'
+
+], function () {
+
+    /* GET */
+    Route::get('show/{summoner_name}', 'SummonerController@show')->middleware("summoner");
+
+    Route::get('toto/{summoner_crypt}', 'SummonerController@toto')->middleware("summoner");
+
+});
