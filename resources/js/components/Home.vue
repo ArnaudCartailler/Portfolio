@@ -1,5 +1,8 @@
 <style>
 
+.img-border{
+    border-radius: 40px;
+}
 </style>
 
 <template>
@@ -20,13 +23,16 @@
                     <v-btn @click="clearResult()">
                         Empty
                     </v-btn>
+                    <v-btn @click="toto()">
+                        toto
+                    </v-btn>
                 </v-flex>
                 
 
                 <v-flex xs12 sm8 md6 class="pa-2">
                     <v-card
                         v-if="error == false"
-                        class="w-50"
+                        class="mx-auto"
                     >
                         <v-card-title class="title">
                             Info du joueur
@@ -38,8 +44,8 @@
                                     <div v-if="!loaded">
                                         <v-img  :src="require('../../../public/profile_img/29.png')"></v-img>
                                     </div>
-                                    <div v-else>
-                                        <v-img  :src="require('../../../public/profile_img/' + result.profileIconId +'.png')"></v-img>
+                                    <div v-else >
+                                        <v-img  class="img-border" :src="require('../../../public/profile_img/' + result.profileIconId +'.png')"></v-img>
                                     </div>
                                 </v-flex>
                                 <v-flex xs12 sm8 md8>
@@ -55,7 +61,7 @@
                             </v-layout>
                         </v-card-text>
                         <v-card-actions v-if="loaded">
-                            <v-btn class="mx-auto">
+                            <v-btn class="mx-auto"  @click="listMatch()">
                                 See more about this summoner
                             </v-btn>
                         </v-card-actions>
@@ -80,11 +86,33 @@
                 </v-flex>
             </v-layout>
 
+            <v-layout row wrap>
+                <v-list>
+                    <v-list-tile v-for="(match, i) in match.matches" :key="i">
+                        <v-list-tile-content>
+                            <v-list-tile-title class="subheading">
+                                {{ match.champion }}
+                            </v-list-tile-title>
+                        </v-list-tile-content>
+                    </v-list-tile>
+                </v-list>
+                <!-- <div>
+                    Total de game joué cette saison : {{ match.totalGames}}
+                </div>
+                <div>
+                    <div>
+                    <img class="img-border" :src="require('../../../public/champ_img/Aatrox.png')">
+                    </div>
+                </div> -->
+            </v-layout>
+
         </v-flex>
     </v-layout>
 </template>
 
 <script>
+
+import champion from '../helper/champion.json';
 
     export default {
         name: 'Home',
@@ -96,6 +124,8 @@
                 summoner:{
                     name: ''
                 },
+                champions: champion.data,
+                match:[],
                 error : false,
                 errorMessage: 'azertyui',
                 refresh: 0
@@ -104,10 +134,17 @@
 
         created()
         {
+            this.champions = Object.values(this.champions)
 
+            console.log(this.champions)
+        
         },
-
         methods:{
+
+            toto()
+            {
+
+            },
             getSummonerByName()
             {
 
@@ -124,14 +161,23 @@
                     }) 
 
             },
-
+            listMatch()
+            {
+                axios.get('api/match/index/' + this.result.accountId)
+                    .then((res) => {
+                        this.match = res.data.data
+                        console.log(this.match)
+                    })
+            },
             clearResult()
             {
                 this.summoner.name = ''
                 this.result = ''
                 this.loaded = false
-            }
-
+            },
+        },
+        computed:
+        {
         }
 
     }

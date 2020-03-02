@@ -27,6 +27,16 @@ Route::group([
     /* GET */
     Route::get('show/{summoner_name}', 'SummonerController@show')->middleware("summoner");
 
-    Route::get('toto/{summoner_crypt}', 'SummonerController@toto')->middleware("summoner");
+});
+
+Route::group([
+
+    'middleware' => 'api',
+    'prefix' => 'match'
+
+], function () {
+
+    /* GET */
+    Route::get('index/{account_id}', 'MatchController@index');
 
 });

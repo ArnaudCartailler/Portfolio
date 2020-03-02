@@ -43,9 +43,7 @@ class ApiRequestController extends Controller
      */
     public static function getHeaders(){
 
-        // retrieve user_id and api_token from Session
-        // $user_id = Session::get( "user_id" );
-        // $api_token = Session::get( "api_token" );
+        // $api_key = env('RIOT_API_KEY');
 
         // build header list
         $header_list = [
@@ -55,7 +53,6 @@ class ApiRequestController extends Controller
             'X-Riot-Token'=> 'RGAPI-0b855cff-aa28-45f6-a762-825885dee0ae',
             'Accept-Language'=> 'fr,de;q=0.9,fr-FR;q=0.8,en-US;q=0.7,en;q=0.6',
             'User-Agent'=> 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36'
-            // 'Authorization' => $user_id . " " . $api_token,
         ];
 
         return $header_list;
