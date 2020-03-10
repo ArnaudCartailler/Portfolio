@@ -19,7 +19,6 @@ Vue.use(Vuetify, {
         secondary: '#97A0D9',
         accent: '#282A4C',
         accent2: '#4e3a6f',
-        bichouille: '#5F5F5F',
         light: '#F0E9E9',
         error: '#FF5252',
         danger: '#db4545',
@@ -34,14 +33,6 @@ Vue.use(Vuetify, {
         svgsecondary2: '#6A5ACD',
         svglight1: '#FFFAFA',
         svglight2: '#F5F5F5',
-        AWS: '#D98501',
-        OVH: '#000E9C',
-        maincolor: '#2283C5',
-        secondcolor: '#95C11F',
-        bckhome: '#e8f2f9',
-        navcolor: '#191970',
-        headcard:'#1976D2',
-        bodycard:'#51A7E1',
     }
 });
 Vue.use(BootstrapVue);
