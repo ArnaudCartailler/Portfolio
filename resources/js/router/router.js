@@ -10,12 +10,21 @@ const routes = [{
          meta: {
             requiresAuth: 0,
         }
+    },
+    {
+        path: '/details',
+        name: 'details',
+        component: Vue.component('Details', require('.././components/Details.vue').default),
+         meta: {
+            requiresAuth: 0,
+        }
     }
 ];
 
 const router = new VueRouter({
-    mode: 'history',
-    routes
+    routes: routes,
+    hashbang: false,
+    mode: 'history'
 });
 
 

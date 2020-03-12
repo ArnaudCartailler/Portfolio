@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Http\Request;
+use Cartalyst\Stripe\Laravel\Facades\Stripe;
+use Cartalyst\Stripe\Exception\CardErrorException;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +15,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::view('/', 'welcome');
+Route::view('/{any}', 'welcome');

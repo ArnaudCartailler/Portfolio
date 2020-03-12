@@ -33,4 +33,48 @@ class MatchController extends Controller
 
     }
 
+    public function show()
+    {
+
+        $match_id  = Request::route('match_id');
+        $method     = 'GET';
+        $route      = 'https://euw1.api.riotgames.com/lol/match/v4/matches/' . $match_id ;
+
+        $option_list = array(
+            'query' => [],
+        );
+
+        $request = ApiRequestController::CallApiOnce($method, $route, $option_list);
+
+        if( !$request )
+        {
+            return Response::json([ "info" => "Can't retrieve details"], 400);
+        }
+
+        return Response::json(['message'=> 'Success', 'data' => json_decode($request, true)], 200);
+
+    }
+
+    public function timeDetails()
+    {
+
+        $match_id  = Request::route('match_id');
+        $method     = 'GET';
+        $route      = 'https://euw1.api.riotgames.com/lol/match/v4/timelines/by-match/' . $match_id ;
+
+        $option_list = array(
+            'query' => [],
+        );
+
+        $request = ApiRequestController::CallApiOnce($method, $route, $option_list);
+
+        if( !$request )
+        {
+            return Response::json([ "info" => "Can't retrieve details"], 400);
+        }
+
+        return Response::json(['message'=> 'Success', 'data' => json_decode($request, true)], 200);
+
+    }
+
 }
