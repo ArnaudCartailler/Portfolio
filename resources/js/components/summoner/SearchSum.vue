@@ -116,13 +116,19 @@
                                             Season : {{ name.season }}
                                         </div>
                                         <div class="subheading text-center">
-                                            {{ moment(name.timestamp, "x").format("MM/DD/YYYY") }}
+                                            {{ moment(name.timestamp, "x").format("DD/MM/YYYY") }}
                                         </div>
                                 </v-flex>
                                 <v-flex xs12 sm12 md9 v-else>
                                     <div class="subheading text-center">
-                                        ARAM
-                                    </div>
+                                            ARAM
+                                        </div>
+                                        <div class="subheading text-center font-weigth-bold">
+                                            Season : {{ name.season }}
+                                        </div>
+                                        <div class="subheading text-center">
+                                            {{ moment(name.timestamp, "x").format("DD/MM/YYYY") }}
+                                        </div>
                                 </v-flex>
                                 </v-layout>
                             </v-item>
