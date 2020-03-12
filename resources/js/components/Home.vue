@@ -7,12 +7,16 @@
 
 <template>
     <v-layout class="pa-4">
-        <v-flex xs12 sm12 md6>
-            <search-sum></search-sum>
-        </v-flex>
-        <v-flex xs12 sm12 md6>
-            <summary-sum></summary-sum>
-        </v-flex>
+        <v-layout row wrap>
+            <v-flex xs12 sm12 md12>
+                <search-sum></search-sum>
+            </v-flex>
+        </v-layout>
+        <v-layout row wrap>
+            <v-flex xs12 sm12 md12>
+                <summary-sum></summary-sum>
+            </v-flex>
+        </v-layout>
     </v-layout>
 </template>
 

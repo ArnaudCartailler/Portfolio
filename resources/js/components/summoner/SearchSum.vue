@@ -10,9 +10,27 @@
     color: gold;
     width: 80px;
 }
+
+.card-match{
+    width: 80px;
+    margin-bottom: 15px;;
+}
+
+.champ-match{
+    border: 1px solid lightgray;
+    margin: auto;
+    margin-bottom: 5px;
+}
+
+.champ-match{
+    border: 1px solid lightgray;
+    margin: auto;
+    margin-bottom: 5px;
+}
 </style>
 <template>
     <v-flex xs12>
+
         <v-layout row wrap>
             <v-flex xs12 sm8 md8 class="pa-2">
                 <v-text-field
@@ -28,73 +46,97 @@
                 </v-btn>
             </v-flex>
         </v-layout>
+
         <v-layout row wrap>
-                
-                <v-flex xs12 sm8 md8 class="pa-2">
-                    <v-card
-                        v-if="error == false"
-                        class="mx-auto"
-                    >
-                        <v-card-title class="title">
-                            Info du joueur : {{ result.name }}
-                        </v-card-title>
-                        <v-card-text>
-                                <div v-if="!loaded">
-                                    <v-img class="img-border w-25 mx-auto" :src="require('../../../../public/profile_img/29.png')" fluid></v-img>
-                                </div>
-                                <div class="text-center title" v-else>
-                                    <v-img class="img-border w-25 mx-auto" :src="require('../../../../public/profile_img/' + result.profileIconId +'.png')" fluid></v-img>
-                                    <div class="level-sum py-2">
-                                        {{ result.summonerLevel }}
-                                    </div>
-                                </div>
-                        </v-card-text>
-                        <v-card-actions v-if="loaded">
-                            <v-btn class="mx-auto"  @click="listMatch()">
-                                See more about this summoner
-                            </v-btn>
-                        </v-card-actions>
-                    </v-card>
-                    <v-card
-                        v-else
-                        flat
-                    >
-                        <v-card-title class="title">
-                            Info du joueur
-                        </v-card-title>
-                        <v-divider></v-divider>
-                        <v-card-text>
-                            <v-layout row wrap>
-                                <div class="subheading danger--text">
-                                    Erreur
-                                </div>
-                            </v-layout>
-                        </v-card-text>
-                    </v-card>
-
-                </v-flex>
-            </v-layout>
-
-            <v-layout row wrap>
-                <v-list two-line>
-                    <v-list-tile v-for="(name, i) in match" :key="i">
-                        <v-list-tile-content>
-                            <div class="w-100">
-                                <v-img :src="require('../../../../public/champ_img/' + getChampName( name.champion ) +'.png')"></v-img>
+            <v-flex xs12 sm8 md8 class="pa-2">
+                <v-card
+                    v-if="error == false"
+                    class="mx-auto w-75"
+                >
+                    <v-card-title class="title">
+                        Info du joueur : {{ result.name }}
+                    </v-card-title>
+                    <v-card-text>
+                            <div v-if="!loaded">
+                                <v-img class="img-border w-25 mx-auto" :src="require('../../../../public/profile_img/29.png')" fluid></v-img>
                             </div>
-                            <v-list-tile-title class="subheading" v-if="name.lane !== 'NONE'">
-                                {{ name.lane }}
-                            </v-list-tile-title>
-                            <v-list-tile-sub-title class="subheading" v-else>
-                                ARAM
-                            </v-list-tile-sub-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                </v-list>
-            </v-layout>
-        </v-flex>
+                            <div class="text-center title" v-else>
+                                <v-img class="img-border w-25 mx-auto" :src="require('../../../../public/profile_img/' + result.profileIconId +'.png')" fluid></v-img>
+                                <div class="level-sum py-2">
+                                    {{ result.summonerLevel }}
+                                </div>
+                            </div>
+                    </v-card-text>
+                    <v-card-actions v-if="loaded">
+                        <v-btn class="mx-auto"  @click="listMatch()">
+                            See more about this summoner
+                        </v-btn>
+                    </v-card-actions>
+                </v-card>
+                <v-card
+                    v-else
+                    flat
+                >
+                    <v-card-title class="title">
+                        Info du joueur
+                    </v-card-title>
+                    <v-divider></v-divider>
+                    <v-card-text>
+                        <v-layout row wrap>
+                            <div class="subheading danger--text">
+                                Erreur
+                            </div>
+                        </v-layout>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+        </v-layout>
+
+        <v-layout row wrap>
+            <v-flex xs12>
+                <v-item-group mandatory>
+                    <v-container>
+                        <v-layout row wrap>
+                            <v-flex
+                                v-for="(name, i) in match" :key="i"
+                                xs12 sm12 md4
+                            >
+                            <v-item class="pa-2 w-50 champ-match">
+                                <v-layout row wrap  @click="$router.push('/details?matchId=' + name.gameId )">
+                                    <v-flex xs12 sm12 md3>
+                                        <div>
+                                            <v-img :src="require('../../../../public/champ_img/' + getChampName( name.champion ) +'.png')"></v-img>
+                                        </div>
+                                    </v-flex>
+                                    <v-flex xs12 sm12 md9 v-if="name.lane !== 'NONE'">
+                                        <div class="subheading text-center">
+                                            {{ name.lane }}
+                                        </div>
+                                        <div class="subheading text-center font-weigth-bold">
+                                            Season : {{ name.season }}
+                                        </div>
+                                        <div class="subheading text-center">
+                                            {{ moment(name.timestamp, "x").format("MM/DD/YYYY") }}
+                                        </div>
+                                </v-flex>
+                                <v-flex xs12 sm12 md9 v-else>
+                                    <div class="subheading text-center">
+                                        ARAM
+                                    </div>
+                                </v-flex>
+                                </v-layout>
+                            </v-item>
+                            </v-flex>
+                        </v-layout>
+                    </v-container>
+                </v-item-group>
+            </v-flex>
+        </v-layout>
+    </v-flex>
 </template>
 <script>
+
+import moment from 'moment';
 import champion from '../../helper/champion.json';
 
     export default {
@@ -102,6 +144,7 @@ import champion from '../../helper/champion.json';
 
         data(){
             return {
+                moment: moment,
                 loaded: false,
                 result :{},
                 summoner:{
@@ -113,17 +156,12 @@ import champion from '../../helper/champion.json';
                 errorMessage: 'Error',
                 refresh: 0,
                 idArray: [],
-                popo: []
             }
         },
 
         created()
         {
-            this.champions = Object.values(this.champions)  
-
-            console.log(this.champions)
-
-            
+            this.champions = Object.values(this.champions)              
         },
         methods:{
 
@@ -135,7 +173,6 @@ import champion from '../../helper/champion.json';
                         this.result = res.data.data
                         this.loaded = true
                         this.error = false
-                        console.log(this.result)
                     })
                     .catch((res) => {
                         this.error = true
@@ -147,12 +184,12 @@ import champion from '../../helper/champion.json';
             {
                 axios.get('api/match/index/' + this.result.accountId)
                     .then((res) => {
+
                         this.match = res.data.data.matches
 
                         this.match.forEach((el) => {
                             this.idArray.push(el.champion)
                         })
-                        console.log(this.idArray)
                     })
                     
             },
@@ -160,6 +197,7 @@ import champion from '../../helper/champion.json';
             {
                 this.summoner.name = ''
                 this.result = ''
+                this.match = []
                 this.loaded = false
             },
 
@@ -177,6 +215,11 @@ import champion from '../../helper/champion.json';
                 })
 
                 return name
+
+            },
+
+            details()
+            {
 
             }
         },

@@ -14,6 +14,7 @@ import Vuetify from 'vuetify';
 import router from './router/router.js';
 import 'vuetify/dist/vuetify.min.css';
 import VueRouter from 'vue-router';
+
 Vue.use(Vuetify, {
     theme: {
         secondary: '#97A0D9',

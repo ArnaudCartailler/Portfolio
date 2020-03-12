@@ -3,7 +3,7 @@
 </style>
 <template>
     <v-flex xs12>
-        toto
+        Résumé du summoner
     </v-flex>
 </template>
 <script>

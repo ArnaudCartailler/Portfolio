@@ -38,5 +38,6 @@ Route::group([
 
     /* GET */
     Route::get('index/{account_id}', 'MatchController@index');
+    Route::get('show/{match_id}', 'MatchController@show');
 
 });
